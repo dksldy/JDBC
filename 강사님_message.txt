@@ -1,0 +1,71 @@
+회원관리 프로젝트 1단계
+
+■	환경설정 
+1.	Jdbc 다운로드 받아서 내가 저장(D:\다운로드)하는 다운로드 위치에 받는다.(ojdbc11.jar)
+2.	ojdbc11.jar 붙여놓는다. C:\app\사용자계정\product\21c\dbhomeXE\jdbc\lib\ojdbc11.jar
+3.	이클립스 작동하고 workspace 를 C:\workspace\1_Java\ 설정한다.
+4.	Jdk17버전을 설치하고, 시스템변수에 path 설정한다. (모두 다 되어 있었다)
+5.	이클립스에서 JdbcTest 프로젝트를 만들고, MainTest 클래스 main 함수를 통해서 작동유무체크
+6.	jdbcTest 프로젝트 -> build path => libraries => class path => add external JARs -> ojdbc11.jar 선택한다음 apply and close
+7.	기본문자 인코딩 : General –Workspace –Text file encoding –other에서 UTF-8 선택
+■오라클 연결 및 실행단계
+1) jdbc driver 등록 : 해당 DBMS(오라클)가 제공하는 클래스 등록
+2) Connection 생성 : 연결하고자 하는 DB정보를 입력해서 해당 DB와 연결하면서 생성
+- DB정보 : 접속 주소(url), 사용자이름(username), 사용자비밀번호(password)
+3) Statement 생성 : Connection 객체를 이용하여 생성 sql문을 실행하고 결과를 받아주는 역할
+4) 오라클에서 트랜처리를 수동처리 요청: conn.setAutoCommit(false);
+5) sql문을 DB에 전달하여 실행 (Statement 객체 사용)
+6) 실행 결과를 받기
+- SELECT 문 실행 : ResultSet 객체 (조회된 데이터들이 담겨져있음)
+-    DML 문 실행 : int (처리된 행 수)
+7) 결과 처리
+- ResultSet에 담겨져있는 데이터들을 하나하나 꺼내서 vo객체에 옮겨 담기
+- 트랜잭션 처리 (실행을 성공했으면 commit, 실패했으면 rollback)
+8) 사용 후 JDBC용 객체들을 반납 (close) --> 생성 역순으로!
+
+■	프로젝트 진행순서
+데이터베이스
+1.	계정생성(C##KH, KH) 권한설정
+2.	SEQUENCE 생성(SEQ_USERNO), NOCACHE
+3.	MEMBER TABLE 설계 , 제약조건 
+4.	데이터 입력 확인 
+서버(CONTROLLER, DAO(VO, DTO, DAO) 
+1.	패키지생성(com.kh.model.vo, com.kh.model.dao, com.kh.controller, com.kh.view, com.kh.run)
+2.	com.kh.run.Run.java  main() 생성한다.
+3.	com.kh.model.vo  Member클래스를 만든다.(모든멤버정의, 디생, 매생, 겟터, 셋터, 출력)
+
+
+4.	com.kh.model.dao MemberDao.java 클래스를 만든다(회원정보입력, 모든회원정보출력, 아이디조회회원정보, 아이디조회수정, 아이디조회삭제)
+1)회원정보입력: int insertMember(Member m)
+2)모든회원정보출력:  ArrayList<Member> selectList()
+3)아이디회원정보:  Member selectById(String userId) => Member selectById(Member m)
+4)아이디회원수정:   int updateById(Member m)
+5)아이디회원삭제:  int deleteById(String userId) =>int deleteById(Member m)
+
+5.	Controller 클래스를 만든다.(view 요청을 하면: (insert, update, delete, select …)
+1)	회원정보입력요청: void insertMember(userId, userPw, userName, gender, age, email, address,phone, hobby)
+2)모든회원정보출력요청:  void selectList()
+3)아이디회원정보출력요청:  void selectById(userId)
+4)아이디회원수정요청:   void updateById(userId, userPw, username, address, phone, hobby )
+5)아이디회원삭제요청:  void deleteById(String userId) 
+
+6.	화면(VIEW) com.kh.view.MemberView
+1)	메뉴에서 처리할 내용(mainMenu())
+-	회원추가
+-	전체회원조회
+-	회원아이디로 검색
+-	회원정보수정
+-	회원탈퇴
+-	회원이름 검색
+-	프로그램종료
+-	>>메뉴번호
+2)	화면별 Controller 요청을 해주는 화면함수
+-	void insertMember() : 사용자가 회원정보 입력을하고 내용을 전달하고 회원가입요청
+-	void selectList() : 컨트롤러에게 회원정보 전체를 데이터를 줄것을 요청
+-	void selectById(): 사용자가 회원아이디를 입력하고 컨트롤러에게 사용자 정보 요청
+-	void updateMember() : 사용자가 업데이트 내용을 입력하고 컨트롤로 업데이트 요청
+-	void deleteMember(): 사용자가 삭제할 회원아이디를 입력하고 컨틀로로 삭제요청
+-	void selectByName(): 사용자가 이름을 입려하고 컨트롤로에세 사용자 정보요청.
+
+3)	컨트롤로에서 리턴받은 값을 출력해주는 화면설계 
+-	성공메세지 출력하는 화면 : void displaySuccess(String message){}
