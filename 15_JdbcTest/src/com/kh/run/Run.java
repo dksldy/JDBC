@@ -9,5 +9,4 @@ public class Run {
 	new MemberView().mainMenu();
 	System.out.println("The end");
 	}
-
 }

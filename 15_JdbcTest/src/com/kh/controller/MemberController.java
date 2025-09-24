@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.model.dao.MemberDao;
 import com.kh.model.vo.Member;
+import com.kh.view.MemberView;
 
 // view -> controller 로 요청하기
 // controller 는 받은 요청을 MemberDao 부르기, 
@@ -36,9 +37,10 @@ public class MemberController {
 		   int result = new MemberDao().insertMember(m);
 		   
 		   if(result > 0) {
-			   // 회원가입 성공된 화면출력 요청.
+			   new MemberView().displaySuccess(userName + 
+					   						"님의 회원가입이 완료되었습니다.");
 		   }else {
-			   // 회원가입 실패한 화면출력 요청.
+			   new MemberView().displayFailed("회원가입 실패");
 		   }
 	   }
 	   
@@ -46,9 +48,9 @@ public class MemberController {
 		   ArrayList<Member> list = new MemberDao().selectList();
 		   
 		   if(list.isEmpty()) {
-			   // 전체화면 리스트내용 없음을 출력요청
+			   new MemberView().displayNoData("회원전체정보가 없습니다.");
 		   }else{
-			   // 전체화면 리스트를 view 에 보여달라(list) 요청
+			   new MemberView().displayMemberList(list);
 		   }
 	   }
 	   
@@ -59,9 +61,11 @@ public class MemberController {
 		   Member member = new MemberDao().selectById(m);
 		   
 		   if(member == null) {
-			   // 해당된 id 의 멤버정보가 없음을 출력요청
+			   new MemberView().displayFailed("해당 " + userId + 
+					   						" 에 해당하는 정보가 없습니다.");
 		   }else{
-			   // 해당된 id 의 멤버정보를 view에 보내주고 화면에 출력요청
+			   new MemberView().displaySuccess(userId + "님의 정보" + 
+					   										member);
 		   }
 	   }
 	   
@@ -80,9 +84,11 @@ public class MemberController {
 		   int result = new MemberDao().updateById(m);
 		   
 		   if(result > 0) {
-			   // 업데이트 성공 화면 출력 요청
+			   new MemberView().displaySuccess(userName + 
+					   						"님의 정보수정이 완료되었습니다.");
 		   }else {
-			   // 업데이트 실패 화면 출력 요청
+			   new MemberView().displayFailed(userName + 
+					   								"님의 정보수정 실패");
 		   }
 	   }
 	   
@@ -94,9 +100,11 @@ public class MemberController {
 		   int result = new MemberDao().deleteById(m);
 		   
 		   if(result > 0) {
-			   // 삭제 성공 화면 출력 요청
+			   new MemberView().displaySuccess(userId + 
+					   						"님의 회원정보가 삭제되었습니다.");
 		   }else {
-			   // 삭제 실패 화면 출력 요청
+			   new MemberView().displayFailed(userId + 
+					   							"님의 회정정보 삭제 실패");
 		   }
 	   }
 	   

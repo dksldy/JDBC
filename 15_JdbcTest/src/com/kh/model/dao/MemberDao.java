@@ -28,11 +28,11 @@ public class MemberDao {
 			
 			try {
 				//1. 오라클 드라이버를 로드
-				Class.forName("DRIVER");
+				Class.forName(DRIVER);
 				
 				//2. 오라클 접속요청
 				conn = DriverManager.getConnection( 
-						"URL", "ID", "PASSWORD");
+						URL, ID, PASSWORD);
 				
 				//3. 트랜잭션 제어 사용자 설정
 				conn.setAutoCommit(false);
@@ -91,11 +91,11 @@ public class MemberDao {
 			
 			try {
 				//1. 오라클 드라이버를 로드
-				Class.forName("DRIVER");
+				Class.forName(DRIVER);
 				
 				//2. 오라클 접속요청
 				conn = DriverManager.getConnection( 
-						"URL", "ID", "PASSWORD");
+						URL, ID, PASSWORD);
 				
 				// 3. 트랜잭션 설정
 				conn.setAutoCommit(false);
@@ -153,12 +153,12 @@ public class MemberDao {
 		
 		try {
 			//1. 오라클 드라이버를 로드
-			Class.forName("DRIVER");
+			Class.forName(DRIVER);
 			
 			//2. 오라클 접속요청
 			System.out.println("<<오라클 드라이버 등록 완료(insert)");
 			conn = DriverManager.getConnection( 
-					"URL","ID", "PASSWORD");
+					URL,ID, PASSWORD);
 			
 			// 3. 트랜잭션 설정
 			conn.setAutoCommit(false);
@@ -216,11 +216,11 @@ public class MemberDao {
 		
 		try {
 			//1. 오라클 드라이버를 로드
-			Class.forName("DRIVER");
+			Class.forName(DRIVER);
 			
 			//2. 오라클 접속요청
 			conn = DriverManager.getConnection( 
-					"URL", "ID", "PASSWORD");
+					URL, ID, PASSWORD);
 			
 			//3. 트랜잭션 제어 사용자 설정
 			conn.setAutoCommit(false);
@@ -270,11 +270,11 @@ public class MemberDao {
 		
 		try {
 			//1. 오라클 드라이버를 로드
-			Class.forName("DRIVER");
+			Class.forName(DRIVER);
 			
 			//2. 오라클 접속요청
 			conn = DriverManager.getConnection( 
-					"URL", "ID", "PASSWORD");
+					URL, ID, PASSWORD);
 			
 			//3. 트랜잭션 제어 사용자 설정
 			conn.setAutoCommit(false);
